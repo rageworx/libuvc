@@ -1,6 +1,6 @@
-# `libuvc` modified version for MinGW-W64 ( no option for CMake )
+# `libuvc` modified version for MinGW-W64 and MSYS
 
-This forked project is not an original, if you finding original source, visit to https://github.com/ktossell/libuvc
+This forked project is not an original, if you are finding original source, please visit to https://github.com/ktossell/libuvc
 
 # About libuvc 
 
@@ -23,6 +23,7 @@ To install your system, copy these:
 	cp -rf include/* /usr/local/include
 	
  * MinGW-W64 doesn't support sudo copying.
+ * Not recommend this customized library copies to /usr/local.
 	
 ## Developing with libuvc
 
