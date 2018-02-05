@@ -20,7 +20,7 @@ To build, you can just run these shell commands:
 To install your system, copy these:
 
     cp lib/libuvc.a /usr/local/lib
-	cp -rf include /usr/local/include
+	cp -rf include/* /usr/local/include
 	
  * MinGW-W64 doesn't support sudo copying.
 	
