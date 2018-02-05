@@ -1,0 +1,1 @@
+Copy fl_imgtk.h and library ( fl_imgtk.a ) to here.
