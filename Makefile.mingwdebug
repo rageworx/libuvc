@@ -1,0 +1,73 @@
+# Makefile for libuvc for MinGW-W64
+# (C)2016, 2017 Raphael Kim / rageworx
+#
+# ------------------------------------------------------------------------------
+# Pre requirements : libjpeg
+#                    1. download source
+#                    2. configure with --enable-static CFLAGS=-mwindows,
+#                    3. then make, make install-lib
+
+# To enable build for embedded linux, you may encomment next 2 lines.
+# CCPREPATH = ${ARM_LINUX_GCC_PATH}
+# CCPREFIX  = arm-linux-
+
+# To enable build for embedded linux, change following line.
+# CCPATH    = ${CCPREPATH}/${CCPREFIX}
+CCPATH =
+
+# Compiler configure.
+GCC = ${CCPATH}gcc
+GPP = ${CCPATH}g++
+AR  = ${CCPATH}ar
+
+SOURCEDIR = ./src
+INCDIR    = ./include
+OBJDIR    = ./obj/Debug
+OUTDIR    = ./lib
+OUTBIN    = libuvcd.a
+
+DEFINEOPT = -DDEBUG -DUVC_DEBUGGING
+OPTIMIZEOPT = -mwindows -g
+
+USRLOCALDIR = /usr/local
+
+CFLAGS    = -I./include
+CFLAGS   += -I$(SOURCEDIR)
+CFLAGS   += -I$(USRLOCALDIR)/include
+CFLAGS   += -I$(USRLOCALDIR)/include/libusb-1.0
+CFLAGS   += $(DEFINEOPT) $(OPTIMIZEOPT)
+
+LFLAGS   += -L/usr/local/lib
+LFLAGS   += -lusb-1.0
+LFLAGS   += -ljpeg
+
+SRCS  = $(SOURCEDIR)/ctrl.c 
+SRCS += $(SOURCEDIR)/ctrl-gen.c 
+SRCS += $(SOURCEDIR)/device.c 
+SRCS += $(SOURCEDIR)/diag.c 
+SRCS += $(SOURCEDIR)/frame.c 
+SRCS += $(SOURCEDIR)/frame-mjpeg.c 
+SRCS += $(SOURCEDIR)/init.c 
+SRCS += $(SOURCEDIR)/misc.c 
+SRCS += $(SOURCEDIR)/stream.c
+
+OBJS = $(SRCS:$(SOURCEDIR)/%.c=$(OBJDIR)/%.o)
+
+all: prepare clean ${OUTDIR}/${OUTBIN}
+
+prepare:
+	@mkdir -p ${OBJDIR}
+	@mkdir -p ${OUTDIR}
+
+$(OBJS): $(OBJDIR)/%.o: $(SOURCEDIR)/%.c
+	@echo "Building $@ ... "
+	@$(GCC) $(CFLAGS) $(LFLAGS) -c $< -o $@
+
+$(OUTDIR)/$(OUTBIN): $(OBJS)
+	@echo "Generating $@ ..."
+	@$(AR) -q $@ $(OBJDIR)/*.o
+	@echo "done."
+
+clean:
+	@rm -rf ${OBJDIR}/*
+	@rm -rf ${OUTDIR}/${OUTBIN}
