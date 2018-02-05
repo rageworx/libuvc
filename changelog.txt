@@ -1,3 +1,10 @@
+Changes in 0.0.6 (2018-02-05)
+----------------
+
+Modified features for MinGW-W64
+   - Removed CMake
+   - Changed some files for success in MinGW-W64.
+
 Changes in 0.0.6 (2017-09-21)
 ----------------
 

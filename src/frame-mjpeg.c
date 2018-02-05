@@ -37,6 +37,10 @@
  */
 #include "libuvc/libuvc.h"
 #include "libuvc/libuvc_internal.h"
+
+// Prevent error of BOOLEAN, INT32 for MinGW-W64
+#define HAVE_BOOLEAN
+#define XMD_H
 #include <jpeglib.h>
 #include <setjmp.h>
 
