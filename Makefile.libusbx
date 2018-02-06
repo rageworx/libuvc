@@ -1,11 +1,21 @@
-# Makefile for libuvc for MinGW-W64
+# Makefile for libuvc for MinGW-W64 and libusbx.a
 # (C)2016, 2017 Raphael Kim / rageworx
 #
 # ------------------------------------------------------------------------------
-# Pre requirements : libjpeg
-#                    1. download source
-#                    2. configure with --enable-static CFLAGS=-mwindows,
-#                    3. then make, make install-lib
+# Pre requirements : 
+#
+#    libusbx
+#        1. download or clone source in here:
+#             https://github.com/rageworx/libusbx
+#        2. Build source with Makefile.mingw* for Debug and Release.
+#        3. Put built static lib into libusbx directory.
+#        4. Put header file into libusbx, too.
+#
+#    libjpeg
+#        1. download source
+#        2. configure with --enable-static CFLAGS=-mwindows,
+#        3. then make, make install-lib
+#
 
 # To enable build for embedded linux, you may encomment next 2 lines.
 # CCPREPATH = ${ARM_LINUX_GCC_PATH}
@@ -22,23 +32,25 @@ AR  = ${CCPATH}ar
 
 SOURCEDIR = ./src
 INCDIR    = ./include
-OBJDIR    = ./obj/Debug
+OBJDIR    = ./obj/Release
+USBXDIR   = ./libusbx
 OUTDIR    = ./lib
-OUTBIN    = libuvcd.a
+OUTBIN    = libuvc.a
 
-DEFINEOPT = -DDEBUG
-OPTIMIZEOPT = -mwindows -g
+DEFINEOPT =
+OPTIMIZEOPT = -O3 -mwindows
 
 USRLOCALDIR = /usr/local
 
 CFLAGS    = -I./include
 CFLAGS   += -I$(SOURCEDIR)
+CFLAGS   += -I$(USBXDIR)
 CFLAGS   += -I$(USRLOCALDIR)/include
-CFLAGS   += -I$(USRLOCALDIR)/include/libusb-1.0
 CFLAGS   += $(DEFINEOPT) $(OPTIMIZEOPT)
 
 LFLAGS   += -L/usr/local/lib
-LFLAGS   += -lusb-1.0
+LFLAGS   += -L$(USBXDIR)
+LFLAGS   += -lusbx
 LFLAGS   += -ljpeg
 
 SRCS  = $(SOURCEDIR)/ctrl.c 

@@ -24,7 +24,15 @@ To install your system, copy these:
 	
  * MinGW-W64 doesn't support sudo copying.
  * Not recommend this customized library copies to /usr/local.
-	
+ 
+## Build with libusbx
+
+Prerequisites: Make sure `libusbx` and `libjpeg` configured and install on MSYS.
+You can get libusbx for MinGW-W64 from https://github.com/rageworx/libusbx
+Copy libusbx header and libraries ( Release and Debug ) into libsubx, then 
+
+    make -f Makefile.libusbx
+ 
 ## Developing with libuvc
 
 The documentation for `libuvc` can currently be found at https://int80k.com/libuvc/doc/.

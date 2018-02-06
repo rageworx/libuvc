@@ -1,0 +1,5 @@
+Copy here libusbx header and libraries
+
+ - libusb.h
+ - libusbx.a
+ - libusbxd.a
