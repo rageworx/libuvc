@@ -48,9 +48,9 @@ CFLAGS   += -I$(USBXDIR)
 CFLAGS   += -I$(USRLOCALDIR)/include
 CFLAGS   += $(DEFINEOPT) $(OPTIMIZEOPT)
 
+LFLAGS    = -L$(USBXDIR)
 LFLAGS   += -L/usr/local/lib
-LFLAGS   += -L$(USBXDIR)
-LFLAGS   += -lusbx
+LFLAGS   += -lusbxd
 LFLAGS   += -ljpeg
 
 SRCS  = $(SOURCEDIR)/ctrl.c 
