@@ -1,2 +1,5 @@
 # Build directory (recommended location)
 build/
+libusbx/*
+obj
+lib
